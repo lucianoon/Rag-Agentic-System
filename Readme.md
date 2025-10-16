@@ -448,12 +448,6 @@ print(f"Embeddings: {stats['embeddings_stored']}")
 
 Este projeto está licenciado sob a Licença MIT.
 
-## 🙏 Agradecimentos
-
-- **Sentence Transformers** pelos modelos de embedding
-- **scikit-learn** pelo fallback TF-IDF
-- **PyTorch** pelas capacidades de machine learning
-
 ## 📚 Próximos Passos
 
 Veja [`docs/REFINEMENT_PLAN.md`](docs/REFINEMENT_PLAN.md) para melhorias planejadas:
