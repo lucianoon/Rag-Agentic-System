@@ -468,7 +468,3 @@ Veja [`docs/REFINEMENT_PLAN.md`](docs/REFINEMENT_PLAN.md) para melhorias planeja
 Para problemas ou questões:
 - Email: lucianomevam@outlook.com
 - GitHub Issues: https://github.com/lucianoon/Rag-Agentic-System/issues
-
----
-
-**Construído com ❤️ para a comunidade de IA brasileira**
