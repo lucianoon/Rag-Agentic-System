@@ -1,334 +1,474 @@
-# RAG Agentic System 🤖
+# Sistema RAG Agêntico 🤖
 
-A comprehensive **Retrieval-Augmented Generation (RAG) system with agentic behavior** for intelligent information retrieval and processing.
+Um sistema completo de **Retrieval-Augmented Generation (RAG) com comportamento agêntico** para recuperação e processamento inteligente de informações.
 
-## 📋 Overview
+## ✨ Funcionalidades
 
-This project implements a sophisticated RAG system that goes beyond simple question-answering to provide autonomous, multi-step reasoning and task execution. The system combines:
+- **Recuperação Multi-Fonte**: Ingestão de documentos do sistema de arquivos
+- **Embeddings Flexíveis**: Sentence-Transformers com fallback automático para TF-IDF
+- **Busca Vetorial**: Similaridade de cosseno em memória
+- **Memória de Tarefas**: Armazenamento SQLite para histórico de tarefas
+- **CLI Interativa**: Interface de linha de comando amigável
+- **Pipeline Configurável**: Configuração baseada em YAML
 
-- **Agentic Behavior**: Multi-step planning, execution, and adaptation
-- **Retrieval-Augmented Generation**: Grounded responses using external knowledge
-- **Vector Search**: Semantic similarity search for precise fact retrieval
-- **Memory System**: Learning from past interactions and continuous improvement
-- **Result Verification**: Multi-layered verification for accuracy and reliability
+## 🚀 Instalação
 
-## 🏗️ Architecture
-
-The system follows the complete RAG agentic workflow:
-
-1. **Define Goal** → Clear task definition and objective setting
-2. **Retrieve Data** → Extract documents from multiple sources  
-3. **Vector Search** → Use embeddings for exact fact finding
-4. **Multi-Step Planning** → Generate execution strategy
-5. **Execution Loop** → Retrieve → Reason → Act → Verify
-6. **Implement Actions** → Execute planned steps with verification
-7. **Verify Results** → Multi-dimensional accuracy checking
-8. **Update Memory** → Store results for future reuse
-9. **Adapt** → Continuous improvement based on feedback
-
-## 🚀 Features
-
-### Core Capabilities
-- **Multi-Source Retrieval**: Filesystem, databases, APIs, and web sources
-- **Advanced Vector Search**: FAISS or simple vector stores with multiple embedding models
-- **Intelligent Memory**: SQLite-based storage with importance scoring and cleanup
-- **Comprehensive Verification**: Factual, logical, and source verification
-- **Interactive CLI**: User-friendly command-line interface
-- **Configurable Pipeline**: YAML-based configuration system
-
-### Agent Features
-- **Multi-Step Reasoning**: Break complex tasks into manageable steps
-- **Error Handling**: Robust retry mechanisms and graceful failure handling
-- **Performance Monitoring**: Built-in metrics and statistics tracking
-- **Extensible Design**: Plugin architecture for custom components
-
-## 🛠️ Installation
-
-### Prerequisites
-- Python 3.8 or higher
+### Pré-requisitos
+- Python 3.8 ou superior
 - Git
 
-### Quick Start
+### Início Rápido
 
 ```bash
-# Clone the repository
-git clone https://github.com/username/rag-agentic-system.git
-cd rag-agentic-system
+# Clone o repositório
+git clone https://github.com/lucianoon/Rag-Agentic-System.git
+cd Rag-Agentic-System
 
-# Install basic dependencies
+# Instale as dependências
 pip install -r requirements.txt
 
-# For enhanced functionality (recommended)
-pip install -e .[ml,nlp]
-
-# Run the system
+# Execute o sistema
 python main.py
 ```
 
-### Dependencies
+## 📖 Como Usar
 
-#### Core Dependencies (Required)
-```bash
-pip install numpy>=1.21.0 pyyaml>=6.0 python-dotenv>=0.19.0 requests>=2.28.0 coloredlogs>=15.0.0
-```
-
-#### Optional Dependencies (Enhanced Features)
-```bash
-# Machine Learning
-pip install sentence-transformers>=2.2.0 faiss-cpu>=1.7.0 torch>=2.0.0
-
-# Advanced NLP
-pip install spacy>=3.4.0 nltk>=3.8.0
-
-# Web Scraping
-pip install beautifulsoup4>=4.11.0 selenium>=4.0.0
-
-# Database Integration
-pip install sqlalchemy>=1.4.0 psycopg2-binary>=2.9.0
-
-# API Integration
-pip install openai>=1.0.0 anthropic>=0.3.0
-
-# Development Tools
-pip install pytest>=7.0.0 black>=22.0.0 mypy>=1.0.0
-```
-
-## 🎯 Usage
-
-### Interactive Mode (Default)
+### Modo Interativo (Padrão)
 
 ```bash
 python main.py
 ```
 
-This starts the interactive RAG agent:
+Isso inicia o agente RAG interativo:
 
 ```
 🤖 RAG Agentic System - Interactive Mode
 Type 'help' for commands, 'quit' to exit
 
-RAG> What is machine learning?
-🔍 Processing: What is machine learning?
-📋 Task defined: What is machine learning
-📚 Retrieved 12 documents
-🎯 Found 5 relevant facts
-📝 Planned 2 execution steps
-🎉 Task completed! ✅ Verified
-📄 Response: Machine learning is a subset of artificial intelligence...
+RAG> O que é machine learning?
+🔍 Processing: O que é machine learning?
+
+📄 Response:
+Baseado nos documentos recuperados...
 ```
 
-### Single Task Mode
+### Modo de Tarefa Única
 
 ```bash
-python main.py --task "Explain quantum computing"
+python main.py --task "Explique computação quântica"
 ```
 
-### Adding Documents
+### Adicionando Documentos
 
-```bash
-python main.py --add-docs document1.txt research_paper.pdf
-```
+1. Coloque seus arquivos `.txt` ou `.md` no diretório `data/processed/`
+2. Execute o sistema - ele irá indexá-los automaticamente na inicialização
 
-### Custom Configuration
+### Configuração
 
-```bash
-python main.py --config custom_config.yaml
-```
+Edite `config/default.yaml` para personalizar:
+- Modelos de embedding
+- Configurações do vector store
+- Parâmetros de recuperação
+- Configurações de memória
 
-### Available Commands
+### Comandos Disponíveis
 
-In interactive mode:
-- `help` - Show available commands
-- `stats` - Display system statistics
-- `history` - Show recent task history
-- `quit`/`exit`/`q` - Exit the system
+No modo interativo:
+- `<pergunta>` - Faça uma pergunta
+- `stats` - Exibe estatísticas do sistema
+- `history` - Mostra histórico de tarefas recentes
+- `clear` - Limpa o vector store
+- `quit`/`exit`/`q` - Sai do sistema
 
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 rag-agentic-system/
-├── main.py                 # Main application entry point
-├── pyproject.toml          # Project configuration
-├── requirements.txt        # Dependencies
-├── README.md              # This file
-├── .gitignore             # Git ignore rules
-│
-├── src/rag_agent/         # Core application code
-│   ├── __init__.py        # Package initialization
-│   ├── agent.py           # Main RAG agent implementation
-│   ├── retrieval.py       # Document retrieval system
-│   ├── vector_search.py   # Vector search engine
-│   ├── memory.py          # Agent memory system
-│   └── verification.py    # Result verification
-│
-├── config/                # Configuration files
-│   └── config.yaml        # Main configuration
-│
-├── data/                  # Data storage
-│   ├── raw/              # Raw input documents
-│   ├── processed/        # Processed data
-│   └── vector_store/     # Vector database files
-│
-├── tests/                 # Test suite
-│   ├── test_agent.py     # Agent tests
-│   ├── test_retrieval.py # Retrieval tests
-│   └── ...               # Other test files
-│
-├── docs/                  # Documentation
-└── logs/                  # Application logs
+├── main.py                     # Ponto de entrada CLI
+├── requirements.txt            # Dependências
+├── README.md                   # Este arquivo
+├── config/
+│   └── default.yaml           # Arquivo de configuração
+├── src/rag_agent/             # Código principal da aplicação
+│   ├── __init__.py            # Inicialização do pacote
+│   ├── agent.py               # Agente RAG principal
+│   ├── config.py              # Gerenciamento de configuração
+│   ├── embeddings.py          # Backends de embedding
+│   ├── memory.py              # Armazenamento de memória
+│   ├── pipeline.py            # Orquestração do pipeline
+│   ├── retrieval.py           # Recuperação de documentos
+│   ├── types.py               # Modelos de dados
+│   └── vector_store.py        # Armazenamento vetorial
+├── data/
+│   └── processed/             # Coloque documentos aqui
+└── docs/
+    └── REFINEMENT_PLAN.md     # Roadmap de desenvolvimento
 ```
 
-## ⚙️ Configuration
+## 🔧 Explicação do Código
 
-The system is highly configurable via YAML files. Main configuration sections:
+### Arquitetura do Sistema
 
-### Agent Configuration
-```yaml
-agent:
-  max_iterations: 10
-  timeout_seconds: 300
-  retry_attempts: 3
-```
+O sistema é organizado em módulos independentes que trabalham juntos:
 
-### Memory System
-```yaml
-memory:
-  database_path: "data/memory.db"
-  cleanup_days: 30
-  importance_threshold: 0.3
-```
-
-### Vector Search
-```yaml
-vector_search:
-  embedding_model: "all-MiniLM-L6-v2"
-  vector_store_type: "simple"  # or "faiss"
-  dimension: 384
-```
-
-See `config/config.yaml` for complete configuration options.
-
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=src/rag_agent
-
-# Run specific test categories
-pytest -m "unit"          # Unit tests only
-pytest -m "integration"   # Integration tests only
-```
-
-## 📊 Performance & Monitoring
-
-### System Statistics
-```bash
-RAG> stats
-📊 System Statistics:
-  Vector Documents: 150
-  Embedding Model: SentenceTransformerModel
-  Vector Store: SimpleVectorStore
-  Recent Tasks: 25
-  Success Rate: 87.3%
-```
-
-### Logging
-Comprehensive logging is built-in:
-- Console output for user interaction
-- File logging for debugging (`logs/rag_agent.log`)
-- Configurable log levels per component
-
-## 🔧 Development
-
-### Setup Development Environment
-
-```bash
-# Install development dependencies
-pip install -e .[dev]
-
-# Setup pre-commit hooks
-pre-commit install
-
-# Run code formatting
-black src/ tests/
-flake8 src/ tests/
-
-# Type checking
-mypy src/
-```
-
-### Adding Custom Components
-
-The system is designed to be extensible:
-
-1. **Custom Retrievers**: Implement `BaseRetriever` interface
-2. **Custom Verifiers**: Implement `BaseVerifier` interface  
-3. **Custom Vector Stores**: Implement `BaseVectorStore` interface
-4. **Custom Embedding Models**: Implement `BaseEmbeddingModel` interface
-
-Example custom retriever:
+#### 1. **types.py** - Modelos de Dados
+Define as estruturas de dados fundamentais:
+- `Document`: Representa um documento com conteúdo e metadados
+- `RetrievalResult`: Resultado de uma busca vetorial (documento + score)
+- `TaskLog`: Registra o histórico de execução de uma tarefa
+- `AgentResponse`: Resposta final retornada ao usuário
 
 ```python
-from rag_agent.retrieval import BaseRetriever, Document
-
-class CustomRetriever(BaseRetriever):
-    def retrieve(self, query: str, filters=None) -> List[Document]:
-        # Your custom retrieval logic here
-        return documents
+# Exemplo: Criando um documento
+doc = Document(
+    id="doc1",
+    content="Conteúdo do documento",
+    metadata={"source": "arquivo.txt"}
+)
 ```
 
-## 🤝 Contributing
+#### 2. **config.py** - Gerenciamento de Configuração
+Carrega e gerencia configurações do sistema via YAML:
+- `EmbeddingConfig`: Configurações de embeddings
+- `VectorStoreConfig`: Configurações do armazenamento vetorial
+- `RetrievalConfig`: Parâmetros de recuperação de documentos
+- `MemoryConfig`: Configurações de memória
+- `AgentConfig`: Parâmetros do agente
 
-Contributions are welcome! Please:
+```python
+# Carregar configuração
+config = load_config()  # Carrega config/default.yaml
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+#### 3. **embeddings.py** - Backend de Embeddings
+Converte texto em vetores numéricos:
+- Suporta Sentence-Transformers (melhor qualidade)
+- Fallback automático para TF-IDF (não precisa GPU)
+- Normalização automática de vetores
 
-### Development Guidelines
+```python
+# Criar backend de embeddings
+embeddings = EmbeddingBackend(config=config.embeddings)
 
-- Follow PEP 8 style guide
-- Add tests for new features
-- Update documentation as needed
-- Use type hints for better code clarity
+# Converter texto em vetor
+vector = embeddings.embed_single("texto de exemplo")
+```
 
-## 📄 License
+**Como funciona:**
+1. Tenta usar Sentence-Transformers (modelos neurais)
+2. Se não disponível, usa TF-IDF (baseado em estatísticas)
+3. Retorna vetores normalizados para busca de similaridade
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+#### 4. **vector_store.py** - Armazenamento Vetorial
+Armazena e busca documentos por similaridade:
+- Armazenamento em memória (dicionário Python)
+- Busca por similaridade de cosseno
+- Operações: add, search, delete, clear
 
-## 🙏 Acknowledgments
+```python
+# Criar vector store
+vector_store = VectorStore(config=config.vector_store)
 
-- **Sentence Transformers** for embedding models
-- **FAISS** for efficient vector search
-- **PyTorch** for machine learning capabilities
-- The open-source AI community for inspiration
+# Adicionar documentos
+vector_store.add([(documento, vetor)])
 
-## 📚 Further Reading
+# Buscar documentos similares
+results = vector_store.search(query_vector, top_k=5)
+```
 
-### RAG and Agentic Systems
-- [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
-- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
-- [Building Agentic RAG with LlamaIndex](https://docs.llamaindex.ai/en/stable/use_cases/agents/)
+**Como funciona a busca:**
+1. Recebe um vetor de consulta
+2. Calcula similaridade de cosseno com todos os vetores armazenados
+3. Retorna os top_k documentos mais similares
 
-### Vector Search and Embeddings
-- [Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks](https://arxiv.org/abs/1908.10084)
-- [FAISS: A Library for Efficient Similarity Search](https://github.com/facebookresearch/faiss)
+#### 5. **retrieval.py** - Recuperação de Documentos
+Carrega documentos do disco e os prepara para indexação:
 
-## 🆘 Support
+**DocumentIngestor**: Carrega arquivos do disco
+- Varre diretórios recursivamente
+- Filtra por extensões (.txt, .md)
+- Divide textos longos em chunks
 
-If you encounter issues:
+```python
+# Criar ingestor
+ingestor = DocumentIngestor(config=config.retrieval)
 
-1. Check the [Issues](https://github.com/lucianoon/rag-agentic-system/issues) page
-2. Review the logs in `logs/rag_agent.log`
-3. Ensure all dependencies are correctly installed
-4. Try running with `--debug` flag for detailed logging
+# Carregar documentos em chunks
+chunks = ingestor.load_chunks()
+```
 
-For questions or discussions, please open an issue or contact the maintainers.
-email: lucianomevam@outlook.com
+**FileSystemRetriever**: Combina ingestão + embeddings + busca
+```python
+# Criar retriever
+retriever = FileSystemRetriever(
+    config=config.retrieval,
+    embeddings=embeddings,
+    vector_store=vector_store
+)
+
+# Ingerir documentos
+retriever.ingest()
+
+# Buscar por query
+results = retriever.search("minha pergunta")
+```
+
+**Chunking de Texto:**
+- Divide documentos em pedaços menores (chunks)
+- Usa `chunk_size` palavras por chunk
+- Mantém `chunk_overlap` palavras entre chunks para preservar contexto
+
+#### 6. **memory.py** - Armazenamento de Memória
+Salva histórico de tarefas em SQLite:
+- Armazena queries e respostas
+- Registra passos de raciocínio
+- Permite consultar histórico
+- Limpeza automática de dados antigos
+
+```python
+# Criar memória
+memory = MemoryStore(config=config.memory)
+
+# Salvar uma tarefa
+log = TaskLog(task_id="task1", query="pergunta")
+memory.store(log)
+
+# Consultar histórico recente
+recent_tasks = memory.recent(limit=10)
+```
+
+#### 7. **pipeline.py** - Orquestração do Pipeline
+Coordena o fluxo de execução:
+
+**ExecutionContext**: Agrupa todas as dependências
+```python
+context = ExecutionContext(
+    config=config,
+    embeddings=embeddings,
+    retriever=retriever,
+    vector_store=vector_store,
+    memory=memory
+)
+```
+
+**Pipeline**: Executa o fluxo RAG
+1. Recupera documentos relevantes
+2. Gera resposta (simples ou via LLM)
+3. Registra na memória
+
+```python
+pipeline = Pipeline(context)
+pipeline.initialize()  # Prepara recursos
+
+# Processar query
+documents = pipeline.retrieve_documents("pergunta")
+response = pipeline.process("pergunta", "resposta", documents)
+```
+
+#### 8. **agent.py** - Agente Principal
+O cérebro do sistema:
+
+```python
+# Criar agente
+agent = AgenticRAG(context)
+agent.initialize()
+
+# Fazer pergunta
+response = agent.query("O que é IA?")
+
+# Acessar resposta
+print(response.answer)
+print(response.references)  # Documentos usados
+print(response.steps)  # Passos de raciocínio
+```
+
+**Fluxo de execução:**
+1. Recebe query do usuário
+2. Busca documentos relevantes (retrieval)
+3. Gera resposta baseada nos documentos
+4. Salva na memória para histórico
+5. Retorna resposta estruturada
+
+#### 9. **main.py** - Interface CLI
+Ponto de entrada do sistema:
+
+**Modo Interativo:**
+- Loop de perguntas e respostas
+- Comandos: stats, history, clear, quit
+- Exibe respostas formatadas
+
+**Modo de Tarefa Única:**
+- Executa uma pergunta e sai
+- Útil para scripts
+
+```bash
+# Interativo
+python main.py
+
+# Tarefa única
+python main.py --task "sua pergunta aqui"
+
+# Com configuração customizada
+python main.py --config meu_config.yaml
+```
+
+## ⚙️ Configuração Detalhada
+
+### Embeddings
+```yaml
+embeddings:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  device: null  # null = auto, "cpu" ou "cuda"
+  use_tfidf_fallback: true  # Usar TF-IDF se transformers indisponível
+  vector_dimension: 384  # Dimensão dos vetores
+```
+
+### Vector Store
+```yaml
+vector_store:
+  backend: "simple"  # Atualmente apenas "simple" suportado
+  embedding_dimension: 384  # Deve coincidir com embeddings
+  similarity_metric: "cosine"  # Métrica de similaridade
+  top_k: 5  # Número de documentos a recuperar
+```
+
+### Retrieval
+```yaml
+retrieval:
+  sources:
+    - "data/processed"  # Diretórios para escanear
+  file_extensions:
+    - ".txt"  # Extensões de arquivo permitidas
+    - ".md"
+  chunk_size: 512  # Máximo de palavras por chunk
+  chunk_overlap: 64  # Palavras de sobreposição entre chunks
+```
+
+### Memória
+```yaml
+memory:
+  enabled: true  # Ativar/desativar memória
+  database_path: "data/memory.db"  # Caminho do banco SQLite
+  cleanup_days: 30  # Deletar logs mais antigos que X dias
+  importance_threshold: 0.3  # Limiar para salvar tarefas
+```
+
+## 🔄 Fluxo de Dados
+
+```
+1. Usuário faz pergunta
+   ↓
+2. Query é convertida em vetor (embedding)
+   ↓
+3. Vector store busca documentos similares
+   ↓
+4. Documentos são recuperados
+   ↓
+5. Resposta é gerada baseada nos documentos
+   ↓
+6. Resposta + metadados salvos na memória
+   ↓
+7. Resposta exibida ao usuário
+```
+
+## 🧪 Desenvolvimento
+
+### Testando o Sistema
+
+```bash
+# Instalar dependências de desenvolvimento
+pip install pytest black flake8
+
+# Executar testes
+pytest tests/
+
+# Formatar código
+black src/ tests/
+
+# Verificar qualidade do código
+flake8 src/ tests/
+```
+
+### Adicionando Novos Retrievers
+
+```python
+from src.rag_agent.retrieval import DocumentIngestor
+
+class MeuRetriever:
+    def load_documents(self):
+        # Sua lógica aqui
+        pass
+```
+
+## 📊 Exemplos de Uso
+
+### Exemplo 1: Perguntas e Respostas Simples
+
+```python
+from src.rag_agent import AgenticRAG, load_config, create_context
+
+# Configurar
+config = load_config()
+context = create_context(config)
+agent = AgenticRAG(context)
+agent.initialize()
+
+# Perguntar
+response = agent.query("O que é Python?")
+print(response.answer)
+```
+
+### Exemplo 2: Adicionar Documentos Manualmente
+
+```python
+# Adicionar documentos
+agent.add_documents(["doc1.txt", "doc2.txt"])
+
+# Buscar
+response = agent.query("Busca nos documentos adicionados")
+```
+
+### Exemplo 3: Ver Estatísticas
+
+```python
+stats = agent.get_stats()
+print(f"Documentos: {stats['total_documents']}")
+print(f"Embeddings: {stats['embeddings_stored']}")
+```
+
+## 🤝 Contribuindo
+
+1. Fork o repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT.
+
+## 🙏 Agradecimentos
+
+- **Sentence Transformers** pelos modelos de embedding
+- **scikit-learn** pelo fallback TF-IDF
+- **PyTorch** pelas capacidades de machine learning
+
+## 📚 Próximos Passos
+
+Veja [`docs/REFINEMENT_PLAN.md`](docs/REFINEMENT_PLAN.md) para melhorias planejadas:
+- Integração com LLMs (OpenAI, Anthropic)
+- Backend FAISS para vector store
+- Capacidades de web scraping
+- Sistemas de verificação avançados
+- Arquitetura de plugins
+
+## 🆘 Suporte
+
+Para problemas ou questões:
+- Email: lucianomevam@outlook.com
+- GitHub Issues: https://github.com/lucianoon/Rag-Agentic-System/issues
+
+---
+
+**Construído com ❤️ para a comunidade de IA brasileira**
