@@ -44,8 +44,8 @@ def create_context(config: AppConfig) -> ExecutionContext:
 
 def run_interactive(agent: AgenticRAG) -> None:
     """Run the interactive CLI mode."""
-    print("\n🤖 RAG Agentic System - Interactive Mode")
-    print("Type 'help' for commands, 'quit' to exit\n")
+    print("\n🤖 RAG Agentic System - Modo interativo")
+    print("Digite 'help' para comandos, 'quit' para sair\n")
 
     while True:
         try:
