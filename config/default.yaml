@@ -1,0 +1,52 @@
+# RAG Agentic System Configuration
+
+# Embedding configuration
+embeddings:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  device: null  # null for auto-detect, "cpu" or "cuda"
+  use_tfidf_fallback: true  # Use TF-IDF if sentence-transformers not available
+  vector_dimension: 384
+
+# Vector store configuration
+vector_store:
+  backend: "simple"  # Currently only "simple" is supported
+  embedding_dimension: 384
+  similarity_metric: "cosine"
+  top_k: 5  # Number of documents to retrieve by default
+
+# Document retrieval configuration
+retrieval:
+  sources:
+    - "data/processed"  # Directory to scan for documents
+  file_extensions:
+    - ".txt"
+    - ".md"
+  chunk_size: 512  # Maximum words per chunk
+  chunk_overlap: 64  # Words of overlap between chunks
+
+# Memory configuration
+memory:
+  enabled: true
+  database_path: "data/memory.db"
+  cleanup_days: 30  # Delete logs older than this
+  importance_threshold: 0.3
+
+# Verification configuration
+verification:
+  enabled: true
+  factual_checks: true
+  consistency_checks: true
+  min_confidence: 0.55
+
+# Agent configuration
+agent:
+  max_iterations: 6
+  retry_attempts: 2
+  temperature: 0.2
+  reasoning_steps: 3
+
+# LLM configuration (optional - currently not implemented)
+llm:
+  provider: null  # "openai", "anthropic", null for no LLM
+  model: null
+  api_key: null  # Or set via OPENAI_API_KEY environment variable
