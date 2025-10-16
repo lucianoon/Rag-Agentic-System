@@ -331,7 +331,4 @@ If you encounter issues:
 4. Try running with `--debug` flag for detailed logging
 
 For questions or discussions, please open an issue or contact the maintainers.
-
----
-
-**Built with ❤️ for the AI community**
+email: lucianomevam@outlook.com
